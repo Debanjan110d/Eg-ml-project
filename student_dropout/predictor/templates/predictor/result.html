@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .result-box {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dropout-yes {
+            border-left: 5px solid #e74c3c;
+        }
+        .dropout-no {
+            border-left: 5px solid #2ecc71;
+        }
+        .prediction-text {
+            font-size: 1.2em;
+            text-align: center;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .dropout-yes .prediction-text {
+            background-color: #fde8e8;
+            color: #c0392b;
+        }
+        .dropout-no .prediction-text {
+            background-color: #e8f8f5;
+            color: #27ae60;
+        }
+        .input-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .input-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        .input-details li {
+            margin: 10px 0;
+            color: #34495e;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box {% if prediction %}dropout-yes{% else %}dropout-no{% endif %}">
+        <h2>Prediction Result</h2>
+        <div class="prediction-text">
+            {% if prediction %}
+                Student is likely to dropout
+            {% else %}
+                Student is not likely to dropout
+            {% endif %}
+        </div>
+        <div class="input-details">
+            <h3>Input Values:</h3>
+            <ul>
+                <li><strong>JEE Main Score:</strong> {{ input_data.jee_main_score }}</li>
+                <li><strong>Attendance:</strong> {{ input_data.attendance }}%</li>
+                <li><strong>CGPA:</strong> {{ input_data.cgpa }}</li>
+            </ul>
+        </div>
+    </div>
+    <a href="{% url 'predict' %}" class="back-link">Make Another Prediction</a>
+</body>
+</html>
